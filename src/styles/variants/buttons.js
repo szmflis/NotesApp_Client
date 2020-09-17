@@ -14,6 +14,12 @@ export default {
       background: darken(0.1, colors.danger),
     }
   },
+  transparent: {
+    background: 'inherit',
+    '&:hover': {
+      background: darken(0.1, colors.white),
+    }
+  },
   disabled: {
     cursor: 'inherit',
     background: colors.disabled,
@@ -26,5 +32,5 @@ export default {
     '&:focus': {
       outline: 'none'
     },
-  }
+  },
 }

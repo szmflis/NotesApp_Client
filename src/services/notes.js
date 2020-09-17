@@ -7,14 +7,15 @@ export const loadUserNotes = async (id) => {
   return response.data
 }
 
-export const addNote = async ({ content, userId, headerAuth }) => {
+export const addNote = async ({ content, userId, headerAuth, dueDate }) => {
   const config = {
     headers: { Authorization: `Bearer ${headerAuth}` }
   }
 
   const bodyParams = {
     content,
-    userId
+    userId,
+    dueDate
   }
 
   const response = await axios.post(baseUrl, bodyParams, config)
@@ -31,7 +32,9 @@ export const deleteNote = async ({ noteId, headerAuth }) => {
   return response
 }
 
-export const editNote = async ({ noteId, newContent, headerAuth }) => {
+export const editNote = async ({
+  noteId, newContent, headerAuth, newDueDate
+}) => {
   const config = {
     headers: { Authorization: `Bearer ${headerAuth}` }
   }
@@ -39,7 +42,8 @@ export const editNote = async ({ noteId, newContent, headerAuth }) => {
   const url = `${baseUrl}/${noteId}`
 
   const bodyParams = {
-    content: newContent
+    content: newContent,
+    dueDate: newDueDate,
   }
 
   const response = await axios.put(url, bodyParams, config)

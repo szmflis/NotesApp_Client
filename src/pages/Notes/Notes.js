@@ -26,6 +26,7 @@ const Notes = () => {
     const fetchData = async () => {
       if (loggedUser !== null) {
         const userData = await loadUserNotes(loggedUser.id)
+        console.log(userData)
         dispatch(initializeNotes(userData))
       }
     }
@@ -59,6 +60,7 @@ const Notes = () => {
               notes.map(note => <Note
                 content={note.content}
                 date={note.date}
+                dueDate={note.dueDate}
                 author={loggedUser !== null ? loggedUser.name : 'unlogged user'}
                 key={note.id}
                 id={note.id}

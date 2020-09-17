@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
+import 'react-calendar/dist/Calendar.css';
 import laptop from '../../assets/workspace.jpg'
 import { theme } from '../../styles/theme'
 import { P } from '../../components/P/P'

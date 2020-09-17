@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import moment from 'moment'
+import { darken } from 'polished'
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
-
 import { deleteNoteRedux, deleteNoteUnloggedUser } from '../../reducers/note-reducer'
 import { theme } from '../../styles/theme'
 import { P } from '../../components/P/P'
@@ -15,7 +15,6 @@ const StyledWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   width: 70rem;
-  border-radius: ${theme.space[4]}px;
   margin-bottom: ${theme.space[4]}px;
 `
 
@@ -29,38 +28,44 @@ const StyledHeader = styled.div`
 `
 
 const StyledContent = styled(motion.div)`
-  padding: ${theme.space[3]}px;
+  font-size: ${theme.fontSize.big};
+  padding: ${theme.space[4]}px;
   background: ${theme.colors.yellow};
-  border-radius: 0px 0px 8px 8px;
   word-wrap: break-word;
   height: auto;
+  border-radius: ${({ isDueDate }) => isDueDate ? '0px' : '0px 0px 8px 8px'};
 `
 
-const StyledBinIcon = styled(FaTrash)`
-  color: ${theme.colors.lightGrey};
-  height: 18px;
-  width: 18px;
-  transition: color 0.3s;
+const StyledIconWrapper = styled(motion.div)`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0px 10px 0px 10px;
+
+  font-weight: ${theme.fontWeight.regular};
+  color: ${theme.colors.white};
+
+  transition: color .5s;
 
   &:hover {
-    cursor: pointer;
     color: ${theme.colors.primary};
   }
 `
 
-const StyledEditIcon = styled(FaEdit)`
-  color: ${theme.colors.lightGrey};
-  height: 18px;
-  width: 18px;
-  transition: color 0.3s;
-
-  &:hover {
-    cursor: pointer;
-    color: ${theme.colors.primary};
-  }
+const StyledDateWrapper = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${darken(0.1, theme.colors.yellow)};
+  border-radius: 0px 0px 8px 8px;
 `
 
-const Note = ({ content, date, author, id }) => {
+const Note = ({
+  content, date, author, id, dueDate
+}) => {
   const [editable, setEditable] = useState(false)
 
   const dispatch = useDispatch()
@@ -84,8 +89,12 @@ const Note = ({ content, date, author, id }) => {
     >
       <StyledHeader>
         <P color={theme.colors.white}>{author}</P>
-        <StyledBinIcon onClick={() => handleNoteDelete()} />
-        <StyledEditIcon onClick={() => setEditable(!editable)} />
+        <StyledIconWrapper onClick={() => setEditable(!editable)}>
+          <FaEdit />
+        </StyledIconWrapper>
+        <StyledIconWrapper onClick={() => handleNoteDelete()}>
+          <FaTrash />
+        </StyledIconWrapper>
         <P color={theme.colors.white}>
           {moment(date).format('MMM Do YYYY, h:mm:ss')}
         </P>
@@ -99,7 +108,7 @@ const Note = ({ content, date, author, id }) => {
             key={id}
           />
         ) : (
-          <StyledContent
+          <motion.div
             key={content}
             initial="out"
             animate="in"
@@ -107,8 +116,17 @@ const Note = ({ content, date, author, id }) => {
             variants={theme.framerVar.fadeInOut}
             transition={theme.framerTrans.fastTrans}
           >
-            {content}
-          </StyledContent>
+            <StyledContent isDueDate={dueDate}>
+              {content}
+            </StyledContent>
+            {dueDate ? (
+              <StyledDateWrapper>
+                Task due in {moment(dueDate).endOf('day').fromNow()}
+              </StyledDateWrapper>
+            ) : (
+              null
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
     </StyledWrapper>
@@ -123,6 +141,11 @@ Note.propTypes = {
   ]).isRequired,
   author: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  dueDate: PropTypes.string,
+}
+
+Note.defaultProps = {
+  dueDate: null,
 }
 
 export default Note

@@ -8,4 +8,5 @@ export const P = styled.p`
   padding: ${({ padding }) => padding || '3px 0px 3px 0px'};
   margin: ${({ margin }) => margin || 0};
   border-bottom: ${({ borderBottom }) => borderBottom};
+  width: ${({ width }) => width};
 `

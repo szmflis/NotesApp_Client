@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
-
+import moment from 'moment'
+import Calendar from 'react-calendar'
+import { FaCalendar } from 'react-icons/fa'
 import { editNoteRedux } from '../../reducers/note-reducer'
 import { P } from '../../components/P/P'
 import { Box } from '../../components/Box/Box'
 import { Textbox } from '../../components/Textbox/Textbox'
 import { Button } from '../../components/Button/Button'
 import { theme } from '../../styles/theme'
+import { StyledDateInput } from '../../components/Input/Input'
+import Modal from '../../components/Modal/Modal'
 
 const StyledForm = styled(motion.form)`
   display: flex;
@@ -22,6 +26,9 @@ const StyledForm = styled(motion.form)`
 `
 
 const NoteEditForm = ({ content, setEditable, id }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [date, setDate] = useState(null)
+
   const { register, handleSubmit, errors } = useForm()
 
   const dispatch = useDispatch()
@@ -29,10 +36,14 @@ const NoteEditForm = ({ content, setEditable, id }) => {
 
   const handleNoteEdit = ({ textbox }) => {
     setEditable(false)
+    let formattedDueDate = null
+    if (date !== null) {
+      formattedDueDate = moment(date).format('YYYY-M-D')
+    }
     if (loggedUser) {
-      dispatch(editNoteRedux(id, textbox, loggedUser.token))
+      dispatch(editNoteRedux(id, textbox, loggedUser.token, formattedDueDate))
     } else {
-      dispatch(editNoteRedux(id, textbox))
+      dispatch(editNoteRedux(id, textbox, null, formattedDueDate))
     }
   }
 
@@ -62,6 +73,32 @@ const NoteEditForm = ({ content, setEditable, id }) => {
           validate: value => value.trim().length !== 0 || 'Note cannot be only whitespace'
         })}
       />
+
+      <Button
+        variant="transparent"
+        type="button"
+        onClick={() => setIsOpen(true)}
+      >
+        <FaCalendar />
+        <StyledDateInput
+          type="text"
+          placeholder="Due date"
+          value={date === null ? '' : moment(date).format('MMM Do YYYY')}
+          readOnly={true}
+          fontSize={theme.fontSize.normal}
+        />
+      </Button>
+      <Modal
+        buttonLabel="Save due date"
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      >
+        <Calendar
+          onChange={(nextDate) => setDate(nextDate)}
+          value={date}
+          minDate={new Date()}
+        />
+      </Modal>
 
       <Box padding="0" margin="0" direction="row" justify="space-around">
         <Button variant="primary" type="submit">

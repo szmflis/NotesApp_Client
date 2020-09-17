@@ -12,7 +12,7 @@ const normalTrans = {
 
 const fastTrans = {
   type: 'tween',
-  duration: 0.4,
+  duration: 0.3,
   ease: 'easeOut',
 }
 

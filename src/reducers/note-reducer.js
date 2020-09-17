@@ -18,7 +18,8 @@ export const addNoteRedux = (note) => {
       const responseData = await addNote({
         content: note.content,
         userId: note.userId,
-        headerAuth: note.auth
+        headerAuth: note.auth,
+        dueDate: note.dueDate
       })
 
       dispatch({
@@ -57,20 +58,22 @@ export const deleteNoteUnloggedUser = (id) => {
   }
 }
 
-export const editNoteRedux = (id, content, auth) => {
+export const editNoteRedux = (id, content, auth, newDueDate) => {
   return async dispatch => {
     try {
       if (auth) {
         const responseData = await editNote({
           noteId: id,
           newContent: content,
-          headerAuth: auth
+          headerAuth: auth,
+          newDueDate
         })
         dispatch({
           type: 'EDIT_NOTE',
           data: {
             id: responseData.id,
-            content: responseData.content
+            content: responseData.content,
+            dueDate: responseData.dueDate
           }
         })
       } else {
@@ -78,7 +81,8 @@ export const editNoteRedux = (id, content, auth) => {
           type: 'EDIT_NOTE',
           data: {
             id,
-            content
+            content,
+            dueDate: newDueDate
           }
         })
       }
@@ -99,7 +103,7 @@ const noteReducer = (state = [], action) => {
     case 'EDIT_NOTE':
       return state.map(note => {
         if (note.id === action.data.id) {
-          return { ...note, content: action.data.content }
+          return { ...note, content: action.data.content, dueDate: action.data.dueDate }
         }
         return note
       })
