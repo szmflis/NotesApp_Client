@@ -6,7 +6,7 @@ export const Input = styled.input`
   font-size: ${({ fontSize }) => fontSize || theme.fontSize.big};
   border: 1px solid ${theme.colors.grey};
   background: none;
-  padding: 10px;
+  padding: ${({ padding }) => padding || '10px'};
   
   transition: 0.5s border-color;
 
