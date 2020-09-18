@@ -18,6 +18,13 @@ const StyledWrapper = styled(motion.div)`
   align-items: center;
 `
 
+const StyledSwitchWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`
+
 const Notes = () => {
   const loggedUser = useSelector(state => state.user)
   const sortingOrder = useSelector(state => state.order)
@@ -43,6 +50,10 @@ const Notes = () => {
         return moment(b.date).toDate() - moment(a.date).toDate()
       case 'dateAsc':
         return moment(a.date).toDate() - moment(b.date).toDate()
+      case 'lengthDesc':
+        return a.content.length - b.content.length
+      case 'lengthAsc':
+        return b.content.length - a.content.length
       default:
         return null
     }
@@ -66,7 +77,31 @@ const Notes = () => {
       <Box direction="row" justify="space-between" width="100rem" padding="0" margin="0" color={theme.colors.white}>
         <Box width="29rem" margin="0">
           <NewNoteForm />
-          <Switch />
+          <StyledSwitchWrapper>
+            <P
+              fontSize={theme.fontSize.big}
+              borderBottom="1px solid grey"
+              margin="20px 0px 10px 0px"
+            >Sort Notes By</P>
+            <Switch
+              labelLeft="New"
+              labelRight="Old"
+              stateLeft="dateDesc"
+              stateRight="dateAsc"
+            />
+            <Switch
+              labelLeft="Long"
+              labelRight="Short"
+              stateLeft="lengthDesc"
+              stateRight="lengthAsc"
+            />
+            <Switch
+              labelLeft="Due soon"
+              labelRight="Due late"
+              stateLeft="dueDesc"
+              stateRight="dueAsc"
+            />
+          </StyledSwitchWrapper>
         </Box>
         <Box width="70rem" margin="0" padding="0" color={theme.colors.white}>
           <AnimatePresence>

@@ -8,6 +8,7 @@ export default {
     bold: 700,
   },
   fontSize: {
+    smallest: '0.75rem',
     small: '1.25rem',
     normal: '1.5rem',
     big: '2rem',

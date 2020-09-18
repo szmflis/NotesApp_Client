@@ -5,7 +5,7 @@ export const changeSortingOrder = (order) => {
   }
 }
 
-const sortingReducer = (state = 'dateDesc', action) => {
+const sortingReducer = (state = 'dateAsc', action) => {
   switch (action.type) {
     case 'CHANGE_ORDER':
       return action.data
