@@ -58,14 +58,20 @@ const Notes = () => {
       case 'lengthAsc':
         return b.content.length - a.content.length
       case 'dueDateDesc':
-        if (a.dueDate === null) {
-          return +1
+        if (a.dueDate === null && b.dueDate === null) {
+          return 0
         }
         if (b.dueDate === null) {
           return -1
         }
+        if (a.dueDate === null) {
+          return +1
+        }
         return moment(b.dueDate).toDate() - moment(a.dueDate).toDate()
       case 'dueDateAsc':
+        if (a.dueDate === null && b.dueDate === null) {
+          return 0
+        }
         if (b.dueDate === null) {
           return -1
         }

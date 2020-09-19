@@ -1,6 +1,7 @@
 import axios from 'axios'
+import urls from '../utils/api-urls'
 
-const baseUrl = '/api/users'
+const baseUrl = urls.users
 
 const register = async ({ username, password, name }) => {
   try {

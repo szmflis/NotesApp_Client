@@ -1,6 +1,7 @@
 import axios from 'axios'
+import urls from '../utils/api-urls'
 
-const baseUrl = 'api/login'
+const baseUrl = urls.login
 
 const login = async ({ username, password }) => {
   try {

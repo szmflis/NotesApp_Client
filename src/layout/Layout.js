@@ -2,8 +2,32 @@ import React from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import PropTypes from 'prop-types'
 import { theme } from '../styles/theme'
+import montLight from '../assets/fonts/mont-light.woff2'
+import montRegular from '../assets/fonts/mont-regular.woff2'
+import montBold from '../assets/fonts/mont-bold.woff2'
 
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Montserrat';
+    src: url(${montLight}) format('woff2');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url(${montRegular}) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url(${montBold}) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
   html {
     font-size: ${theme.fontSizeBase};
   }
@@ -45,6 +69,7 @@ const StyledWrapper = styled.div`
 const Layout = ({ children }) => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
+
     <StyledWrapper>
       {children}
     </StyledWrapper>

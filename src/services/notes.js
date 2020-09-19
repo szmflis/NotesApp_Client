@@ -1,13 +1,17 @@
 import axios from 'axios'
+import urls from '../utils/api-urls'
 
-const baseUrl = '/api/notes'
+const baseUrl = urls.notes
+const userUrl = `${urls.users}/user`
 
 export const loadUserNotes = async (id) => {
-  const response = await axios.get(`/api/users/user/${id}/notes`)
+  const response = await axios.get(`${userUrl}/${id}/notes`)
   return response.data
 }
 
-export const addNote = async ({ content, userId, headerAuth, dueDate }) => {
+export const addNote = async ({
+  content, userId, headerAuth, dueDate
+}) => {
   const config = {
     headers: { Authorization: `Bearer ${headerAuth}` }
   }
