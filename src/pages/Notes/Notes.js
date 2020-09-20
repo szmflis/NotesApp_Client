@@ -8,8 +8,8 @@ import { initializeNotes } from '../../reducers/note-reducer'
 import { Box } from '../../components/Box/Box'
 import { P } from '../../components/P/P'
 import { theme } from '../../styles/theme'
-import Note from './Note'
-import NewNoteForm from './NewNoteForm'
+import Note from './notes-components/Note'
+import NewNoteForm from './notes-components/NewNoteForm'
 import Switch from '../../components/Switch/Switch'
 import { Input } from '../../components/Input/Input'
 
@@ -17,6 +17,42 @@ const StyledWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 1100px;
+
+  @media (max-width: 1110px) {
+    padding: 0px 10px;
+    width: 100vw;
+  }
+`
+
+const StyledContentWrapper = styled(Box)`
+  flex-direction: row;
+  justify-content: space-between;
+  
+  width: 100%;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
+`
+
+const StyledConsole = styled(Box)`
+  width: 30%;
+
+  @media (max-width: 700px) {
+    flex-direction: row;
+    width: 100%;
+  }
+`
+
+const StyledNotesContainer = styled(Box)`
+  width: 69%;
+
+  @media (max-width: 700px) {
+    width: 100%;
+    margin-top: ${theme.space[3]}px;
+  }
 `
 
 const StyledInputWrapper = styled.div`
@@ -92,15 +128,15 @@ const Notes = () => {
       variants={theme.framerVar.fadeInOut}
       transition={theme.framerTrans.fastTrans}
     >
-      <Box width="100rem" align="center">
+      <Box width="100%" align="center">
         <P fontSize={theme.fontSize.bigger}>
           {loggedUser !== null
             ? `${loggedUser.name} ( ${notes.length} notes )`
             : 'unlogged user'}
         </P>
       </Box>
-      <Box direction="row" justify="space-between" width="100rem" padding="0" margin="0" color={theme.colors.white}>
-        <Box width="29rem" margin="0">
+      <StyledContentWrapper color="transparent" pad="0" mar="0">
+        <StyledConsole mar="0">
           <NewNoteForm />
           <StyledInputWrapper>
             <P
@@ -138,12 +174,11 @@ const Notes = () => {
               width="80%"
               type="text"
               value={search}
-              onChange={({target}) => setSearch(target.value)}
+              onChange={({ target }) => setSearch(target.value)}
             />
           </StyledInputWrapper>
-
-        </Box>
-        <Box width="70rem" margin="0" padding="0" color={theme.colors.white}>
+        </StyledConsole>
+        <StyledNotesContainer color="transparent" textAlign="left" mar="0" pad="0">
           <AnimatePresence>
             {
               notes.concat()
@@ -159,8 +194,8 @@ const Notes = () => {
                 />)
             }
           </AnimatePresence>
-        </Box>
-      </Box>
+        </StyledNotesContainer>
+      </StyledContentWrapper>
     </StyledWrapper>
   )
 }

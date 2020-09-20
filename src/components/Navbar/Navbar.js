@@ -9,24 +9,34 @@ import { theme } from '../../styles/theme'
 const StyledNavbar = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: ${theme.colors.darkGrey};
-  padding: 15px 15px 8px 15px;
   width: 100%;
+  background: ${theme.colors.darkGrey};
+  padding: ${theme.space[4]}px;
+`
+
+// NavElementWrappers set their width equally and together span entire navbar width,
+// Then justifying their content can be used to space NavElements
+// Without worrying about their width messing up their spacing
+const NavElementWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: ${({ justify }) => justify};
 `
 
 const NavElement = styled.a`
   cursor: pointer;
   text-decoration: none;
   color: ${theme.colors.white};
-  padding-bottom: 7px;
   font-size: ${theme.fontSize.big};
 
-  background: linear-gradient(0deg,blue,blue) bottom left no-repeat;
-  background-size: 0px 3px;
-  transition: 0.5s;
+  padding: ${theme.space[2]}px;
 
-  margin: ${({ margin }) => margin};
+  background:
+    linear-gradient(${theme.colors.yellow}, ${theme.colors.yellow}) 
+    bottom left no-repeat;
+  
+  background-size: 0px 3px;
+  transition: .3s;
 
   &:hover {
     color: ${theme.colors.white};
@@ -47,13 +57,21 @@ const Navbar = () => {
 
   return (
     <StyledNavbar>
-      <NavElement as={Link} to="/">LOGOPLACE</NavElement>
-      <NavElement as={Link} to="/notes">Your Notes</NavElement>
+      <NavElementWrapper justify="flex-start">
+        <NavElement as={Link} to="/">LOGOPLACE</NavElement>
+      </NavElementWrapper>
+      <NavElementWrapper justify="center">
+        <NavElement as={Link} to="/notes">Notes</NavElement>
+      </NavElementWrapper>
       {
         loggedUser === null ? (
-          <NavElement as={Link} to="/logsign" margin="0px 15px 0px 15px">Sign</NavElement>
+          <NavElementWrapper justify="flex-end">
+            <NavElement as={Link} to="/logsign">Sign</NavElement>
+          </NavElementWrapper>
         ) : (
-          <NavElement as={Link} to="/" margin="0px 15px 0px 15px" onClick={handleLogout}>Logout</NavElement>
+          <NavElementWrapper justify="flex-end">
+            <NavElement as={Link} to="/" onClick={handleLogout}>Logout</NavElement>
+          </NavElementWrapper>
         )
       }
     </StyledNavbar>

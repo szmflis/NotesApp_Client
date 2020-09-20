@@ -1,15 +1,15 @@
 import React from 'react'
-import { Box } from '../../components/Box/Box'
-import { P } from '../../components/P/P'
-import { A } from '../../components/A/A'
-import { theme } from '../../styles/theme'
-import { Img } from '../../components/Img/Img'
-import { Span } from '../../components/Span/Span'
-import icons from '../../utils/icons'
+import { Box, Card } from '../../../components/Box/Box'
+import { P } from '../../../components/P/P'
+import { A } from '../../../components/A/A'
+import { theme } from '../../../styles/theme'
+import { Img } from '../../../components/Img/Img'
+import { Span } from '../../../components/Span/Span'
+import icons from '../../../utils/icons'
 
 const StackBox = () => {
   return (
-    <Box width="50rem" align="center" textAlign="center">
+    <Card>
       <P fontSize={theme.fontSize.bigger} borderBottom="1px solid grey" padding="2px" margin="0px 0px 7px 0px">
         Stack of this application
       </P>
@@ -46,7 +46,7 @@ const StackBox = () => {
         User authentication is done with jsonwebtoken and bcrypt libraries.
         Example requests are within requests folder at my github in this project repo.
       </Span>
-    </Box>
+    </Card>
   )
 }
 

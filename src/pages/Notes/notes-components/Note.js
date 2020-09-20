@@ -6,15 +6,15 @@ import { darken } from 'polished'
 import { FaTrash, FaEdit } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
-import { deleteNoteRedux, deleteNoteUnloggedUser } from '../../reducers/note-reducer'
-import { theme } from '../../styles/theme'
-import { P } from '../../components/P/P'
+import { deleteNoteRedux, deleteNoteUnloggedUser } from '../../../reducers/note-reducer'
+import { theme } from '../../../styles/theme'
+import { P } from '../../../components/P/P'
 import NoteEditForm from './NoteEditForm'
 
 const StyledWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  width: 70rem;
+  width: 100%;
   margin-bottom: ${theme.space[4]}px;
 `
 
@@ -24,7 +24,7 @@ const StyledHeader = styled.div`
   align-items: center;
   background: ${theme.colors.black};
   border-radius: 8px 8px 0px 0px ;
-  padding: 0px 5px 0px 5px;
+  padding: 0px 5px 0px;
 `
 
 const StyledContent = styled(motion.div)`
@@ -33,7 +33,7 @@ const StyledContent = styled(motion.div)`
   background: ${theme.colors.yellow};
   word-wrap: break-word;
   height: auto;
-  border-radius: ${({ isDueDate }) => isDueDate ? '0px' : '0px 0px 8px 8px'};
+  border-radius: ${({ isDueDate }) => isDueDate ? '0' : '0px 0px 8px 8px'};
 `
 
 const StyledIconWrapper = styled(motion.div)`
@@ -43,7 +43,7 @@ const StyledIconWrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
 
-  padding: 0px 10px 0px 10px;
+  padding: 0px 10px;
 
   font-weight: ${theme.fontWeight.regular};
   color: ${theme.colors.white};
@@ -55,12 +55,10 @@ const StyledIconWrapper = styled(motion.div)`
   }
 `
 
-const StyledDateWrapper = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const StyledDueDateWrapper = styled(motion.div)`
   background-color: ${darken(0.1, theme.colors.yellow)};
   border-radius: 0px 0px 8px 8px;
+  text-align: center;
 `
 
 const Note = ({
@@ -120,9 +118,9 @@ const Note = ({
               {content}
             </StyledContent>
             {dueDate ? (
-              <StyledDateWrapper>
+              <StyledDueDateWrapper>
                 Task due in {moment(dueDate).endOf('day').fromNow()}
-              </StyledDateWrapper>
+              </StyledDueDateWrapper>
             ) : (
               null
             )}

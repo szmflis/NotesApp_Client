@@ -1,20 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Box } from '../../components/Box/Box'
-import { P } from '../../components/P/P'
-import { Button } from '../../components/Button/Button'
-import { theme } from '../../styles/theme'
+import { Box, Card } from '../../../components/Box/Box'
+import { P } from '../../../components/P/P'
+import { Button } from '../../../components/Button/Button'
+import { theme } from '../../../styles/theme'
 
 const HowToBox = () => {
   return (
-    <Box width="50rem" justify="center" align="center">
+    <Card>
       <P fontSize={theme.fontSize.bigger} borderBottom="1px solid grey" padding="2px" margin="0px 0px 7px 0px">
         How to use
       </P>
       <P>Press either navbar button, or the one below.</P>
       <P>Notes made while not being logged in won't be saved.</P>
       <P>Either register and login or use account</P>
-      <Box color={theme.colors.white} opacity={0.5}>
+      <Box color={theme.colors.white} opacity={0.5} width="80%">
         <P>Username : testuser</P>
         <P>Password : qweqweqwe</P>
       </Box>
@@ -23,7 +23,7 @@ const HowToBox = () => {
           Start Noting
         </P>
       </Button>
-    </Box>
+    </Card>
   )
 }
 
