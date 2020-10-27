@@ -1,4 +1,4 @@
-<a href="https://imgur.com/XhV8Cvd"><img src="https://imgur.com/XhV8Cvd" title="source: imgur.com" /></a>
+[img]https://i.imgur.com/XhV8Cvd.png[/img]
 ### [Site on netlify](https://notesappsf98.netlify.app/)
 
 ### What it is
