@@ -1,4 +1,4 @@
-<blockquote class="imgur-embed-pub" lang="en" data-id="XhV8Cvd"><a href="https://imgur.com/XhV8Cvd">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<a href="https://notesappsf98.netlify.app/"><img src="https://i.imgur.com/XhV8Cvd.png" title="source: imgur.com" /></a>
 ### [Site on netlify](https://notesappsf98.netlify.app/)
 
 ### What it is
